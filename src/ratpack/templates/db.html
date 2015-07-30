@@ -11,7 +11,9 @@
 
   <h1>Database Output</h1>
     <ul>
-    <% model.get("results").each { out.print '<li>' result '</li>' } %>
+    <% model.get("results").each { result -> %>
+       <li> ${result} </li>
+    <% } %>
     </ul>
 
 </div>

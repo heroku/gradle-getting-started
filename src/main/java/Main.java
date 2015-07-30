@@ -48,7 +48,7 @@ public class Main {
                 Connection connection = null;
                 Map<String, Object> attributes = new HashMap<>();
                 try {
-                  connection = DatabaseUrl.extract().getConnection();
+                  connection = DatabaseUrl.extract(true).getConnection();
 
                   Statement stmt = connection.createStatement();
                   stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
