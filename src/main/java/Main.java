@@ -1,5 +1,3 @@
-package my.app;
-
 import ratpack.server.RatpackServer;
 import ratpack.groovy.template.TextTemplateModule;
 import ratpack.guice.Guice;
@@ -7,6 +5,11 @@ import ratpack.server.RatpackServer;
 import ratpack.server.ServerConfig;
 import static ratpack.groovy.Groovy.groovyTemplate;
 import static ratpack.groovy.Groovy.ratpack;
+
+import static javax.measure.unit.SI.KILOGRAM;
+import javax.measure.quantity.Mass;
+import org.jscience.physics.model.RelativisticModel;
+import org.jscience.physics.amount.Amount;
 
 public class Main {
   public static void main(String... args) throws Exception {
@@ -29,6 +32,9 @@ public class Main {
                 ctx.redirect(301, "/");
               })
               .get(ctx -> ctx.render(groovyTemplate("index.html")))
+              .get("hello", ctx -> {
+                ctx.render("Hello!");
+              })
               .assets("public");
           });
       }
