@@ -3,12 +3,12 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath "io.ratpack:ratpack-gradle:0.9.18"
+    classpath "io.ratpack:ratpack-gradle:0.9.17"
   }
 }
 
 apply plugin: "io.ratpack.ratpack-java"
-apply plugin: "idea"
+apply plugin: "io.ratpack.ratpack-groovy"
 
 repositories {
   jcenter()
