@@ -7,7 +7,6 @@ buildscript {
   }
 }
 
-apply plugin: "io.ratpack.ratpack-java"
 apply plugin: "io.ratpack.ratpack-groovy"
 
 repositories {
