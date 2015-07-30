@@ -6,11 +6,6 @@ import ratpack.server.ServerConfig;
 import static ratpack.groovy.Groovy.groovyTemplate;
 import static ratpack.groovy.Groovy.ratpack;
 
-import static javax.measure.unit.SI.KILOGRAM;
-import javax.measure.quantity.Mass;
-import org.jscience.physics.model.RelativisticModel;
-import org.jscience.physics.amount.Amount;
-
 import java.util.*;
 import java.sql.*;
 import com.heroku.sdk.jdbc.DatabaseUrl;
