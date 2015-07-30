@@ -33,7 +33,9 @@ public class Main {
               })
               .get(ctx -> ctx.render(groovyTemplate("index.html")))
               .get("hello", ctx -> {
-                ctx.render("Hello!");
+                RelativisticModel.select();
+                Amount<Mass> m = Amount.valueOf("12 GeV").to(KILOGRAM);
+                ctx.render("E=mc^2: 12 GeV = " + m.toString());
               })
               .assets("public");
           });
