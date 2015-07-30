@@ -27,6 +27,9 @@ public class Main {
           )
           .handlers(c -> {
             c
+              .get("index.html", ctx -> {
+                ctx.redirect(301, "/");
+              })
               .get(ctx -> ctx.render(groovyTemplate("index.html")))
               .get("hello", ctx -> {
                 ctx.render("Hello!");
