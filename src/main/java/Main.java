@@ -1,13 +1,14 @@
+import ratpack.exec.Blocking;
+import ratpack.server.BaseDir;
 import ratpack.server.RatpackServer;
 import ratpack.groovy.template.TextTemplateModule;
 import ratpack.guice.Guice;
-import ratpack.server.RatpackServer;
-import ratpack.server.BaseDir;
+
 import static ratpack.groovy.Groovy.groovyTemplate;
-import static ratpack.groovy.Groovy.ratpack;
 
 import java.util.*;
 import java.sql.*;
+
 import com.heroku.sdk.jdbc.DatabaseUrl;
 
 import static javax.measure.unit.SI.KILOGRAM;
@@ -17,61 +18,59 @@ import org.jscience.physics.amount.Amount;
 
 public class Main {
   public static void main(String... args) throws Exception {
-    RatpackServer.start(b -> b
-        .serverConfig(s -> s
+    RatpackServer.start(s -> s
+        .serverConfig(c -> c
           .baseDir(BaseDir.find())
-          .env()
-        )
-        .registry(
-          Guice.registry(s -> s
-              .module(TextTemplateModule.class, conf ->
-                  conf.setStaticallyCompile(true)
-              )
-          )
-        )
-        .handlers(c -> {
-          c
-            .get("index.html", ctx -> {
-              ctx.redirect(301, "/");
-            })
+          .env())
+
+        .registry(Guice.registry(b -> b
+          .module(TextTemplateModule.class, conf -> conf.setStaticallyCompile(true))))
+
+        .handlers(chain -> chain
             .get(ctx -> ctx.render(groovyTemplate("index.html")))
-            .get("hello", ctx -> {
-              ctx.render("Hello!");
-            })
+
             .get("hello", ctx -> {
               RelativisticModel.select();
               Amount<Mass> m = Amount.valueOf("12 GeV").to(KILOGRAM);
               ctx.render("E=mc^2: 12 GeV = " + m.toString());
             })
+
             .get("db", ctx -> {
-              Connection connection = null;
-              Map<String, Object> attributes = new HashMap<>();
-              try {
-                boolean local = !"cedar-14".equals(System.getenv("STACK"));
-                connection = DatabaseUrl.extract(local).getConnection();
+              boolean local = !"cedar-14".equals(System.getenv("STACK"));
 
-                Statement stmt = connection.createStatement();
-                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-                stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-                ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
+              Blocking.get(() -> {
+                Connection connection = null;
 
-                ArrayList<String> output = new ArrayList<String>();
+                try {
+                  connection = DatabaseUrl.extract(local).getConnection();
+                  Statement stmt = connection.createStatement();
+                  stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
+                  stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
+                  return stmt.executeQuery("SELECT tick FROM ticks");
+                } finally {
+                  if (connection != null) try {
+                    connection.close();
+                  } catch (SQLException e) {
+                  }
+                }
+              }).onError(throwable -> {
+                Map<String, Object> attributes = new HashMap<>();
+                attributes.put("message", "There was an error: " + throwable);
+                ctx.render(groovyTemplate(attributes, "error.html"));
+              }).then(rs -> {
+                ArrayList<String> output = new ArrayList<>();
                 while (rs.next()) {
-                  output.add( "Read from DB: " + rs.getTimestamp("tick"));
+                  output.add("Read from DB: " + rs.getTimestamp("tick"));
                 }
 
+                Map<String, Object> attributes = new HashMap<>();
                 attributes.put("results", output);
                 ctx.render(groovyTemplate(attributes, "db.html"));
-              } catch (Exception e) {
-                attributes.put("message", "There was an error: " + e);
-                ctx.render(groovyTemplate(attributes, "error.html"));
-              } finally {
-                if (connection != null) try{connection.close();} catch(SQLException e){}
-              }
+              });
             })
-            .files(f -> f.dir("public"));
-        }
-      )
+
+            .files(f -> f.dir("public"))
+        )
     );
   }
 }

@@ -11,7 +11,7 @@ Make sure you have Java installed.  Also, install the [Heroku Toolbelt](https://
 ```sh
 $ git clone https://github.com/heroku/gradle-getting-started.git
 $ cd gradle-getting-started
-$ mvn install
+$ ./gradlew stage
 $ heroku local web
 ```
 
