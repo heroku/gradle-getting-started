@@ -3,8 +3,6 @@ import ratpack.server.BaseDir;
 import ratpack.server.RatpackServer;
 import ratpack.groovy.template.TextTemplateModule;
 import ratpack.guice.Guice;
-import ratpack.server.RatpackServer;
-import ratpack.server.BaseDir;
 
 import static ratpack.groovy.Groovy.groovyTemplate;
 
