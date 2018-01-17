@@ -1,5 +1,5 @@
 plugins {
-  id "io.ratpack.ratpack-groovy" version "1.4.5"
+  id "io.ratpack.ratpack-groovy" version "1.5.1"
 }
 
 repositories {
@@ -9,10 +9,10 @@ repositories {
 mainClassName = "Main"
 
 dependencies {
-  runtime "org.slf4j:slf4j-simple:1.7.12"
-  compile "com.heroku.sdk:heroku-jdbc:0.1.1"
-  compile "org.postgresql:postgresql:9.4-1201-jdbc4"
-  testCompile 'junit:junit:4.11'
+  runtime "org.slf4j:slf4j-simple:1.7.25"
+  compile ratpack.dependency("hikari")
+  compile "org.postgresql:postgresql:42.2.0"
+  testCompile 'junit:junit:4.12'
 }
 
 task stage {
