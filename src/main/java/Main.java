@@ -42,20 +42,22 @@ public class Main {
                   Statement stmt = connection.createStatement();
                   stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
                   stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-                  return stmt.executeQuery("SELECT tick FROM ticks");
+                  ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
+
+                  ArrayList<String> output = new ArrayList<>();
+                  while (rs.next()) {
+                    output.add("Read from DB: " + rs.getTimestamp("tick"));
+                  }
+                  Map<String, Object> attributes = new HashMap<>();
+                  attributes.put("results", output);
+
+                  return attributes;
                 }
               }).onError(throwable -> {
                 Map<String, Object> attributes = new HashMap<>();
                 attributes.put("message", "There was an error: " + throwable);
                 ctx.render(groovyTemplate(attributes, "error.html"));
-              }).then(rs -> {
-                ArrayList<String> output = new ArrayList<>();
-                while (rs.next()) {
-                  output.add("Read from DB: " + rs.getTimestamp("tick"));
-                }
-
-                Map<String, Object> attributes = new HashMap<>();
-                attributes.put("results", output);
+              }).then(attributes -> {
                 ctx.render(groovyTemplate(attributes, "db.html"));
               });
             })
