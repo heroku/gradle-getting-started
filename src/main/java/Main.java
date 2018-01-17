@@ -37,8 +37,6 @@ public class Main {
             })
 
             .get("db", ctx -> {
-              boolean local = !"heroku-16".equals(System.getenv("STACK"));
-
               Blocking.get(() -> {
                 try (Connection connection = ctx.get(DataSource.class).getConnection()) {
                   Statement stmt = connection.createStatement();
