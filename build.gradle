@@ -1,5 +1,5 @@
 plugins {
-  id "io.ratpack.ratpack-groovy" version "1.5.1"
+  id "io.ratpack.ratpack-groovy" version "1.5.4"
 }
 
 repositories {
@@ -11,7 +11,7 @@ mainClassName = "Main"
 dependencies {
   runtime "org.slf4j:slf4j-simple:1.7.25"
   compile ratpack.dependency("hikari")
-  compile "org.postgresql:postgresql:42.2.0"
+  compile "org.postgresql:postgresql:42.2.2"
   testCompile 'junit:junit:4.12'
 }
 
