@@ -7,3 +7,5 @@ out
 *.iws
 .env
 .DS_Store
+docs/tmp/
+docs/gradle-getting-started/
