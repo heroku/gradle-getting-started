@@ -187,8 +187,8 @@ $ ./gradlew stage
 In either case, you'll see output like this:
 
 ```term
-:::>- $ ./gradlew stage
-:::-> | $ tail -3
+:::-- $ ./gradlew stage
+:::-> | $ tail -2
 ```
 
 If you see an error such as `Unsupported major.minor version 52.0`, then Gradle is trying to use Java 7. Check that your `JAVA_HOME` environment variable is set correctly.
