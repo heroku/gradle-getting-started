@@ -1,1 +1,1 @@
-java -jar build/libs/gradle-getting-started-*.jar
+web: java -jar build/libs/gradle-getting-started-*.jar
