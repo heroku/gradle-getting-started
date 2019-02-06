@@ -1,20 +1,28 @@
-plugins {
-  id "io.ratpack.ratpack-groovy" version "1.5.4"
+buildscript {
+	ext {
+		springBootVersion = '2.1.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
 }
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
 
 repositories {
-  jcenter()
+	mavenCentral()
 }
-
-mainClassName = "Main"
 
 dependencies {
-  runtime "org.slf4j:slf4j-simple:1.7.25"
-  compile ratpack.dependency("hikari")
-  compile "org.postgresql:postgresql:42.2.2"
-  testCompile 'junit:junit:4.12'
-}
-
-task stage {
-  dependsOn installDist
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
