@@ -1,4 +1,4 @@
-package com.example;
+package com.example.heroku;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -20,7 +20,7 @@ import java.util.Map;
 
 @Controller
 @SpringBootApplication
-public class Main {
+public class HerokuApplication {
 
   @Value("${spring.datasource.url}")
   private String dbUrl;
@@ -29,7 +29,7 @@ public class Main {
   private DataSource dataSource;
 
   public static void main(String[] args) throws Exception {
-    SpringApplication.run(Main.class, args);
+    SpringApplication.run(HerokuApplication.class, args);
   }
 
   @RequestMapping("/")
