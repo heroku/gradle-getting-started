@@ -17,13 +17,13 @@ end
 
 <h2 data-next-message="I'm ready to start">Introduction</h2>
 
-This tutorial will have you deploying a Gradle app in minutes. 
+This tutorial will have you deploying a Gradle app in minutes.
 
 Hang on for a few more minutes to learn how it all works, so you can make the most out of Heroku.
 
 The tutorial assumes that you have:
 
-* a free [Heroku account](https://signup.heroku.com/signup/dc) 
+* a free [Heroku account](https://signup.heroku.com/signup/dc)
 * Java 8 installed
 
 If you'd prefer to use Maven instead of Gradle, please see the [Getting Started on Heroku with Java](getting-started-with-java) guide.
@@ -34,7 +34,7 @@ In this step you will install the Heroku Command Line Interface (CLI), formerly 
 
 <a class="toolbelt" href="https://cli.heroku.com">Download the Heroku CLI</a>
 
-Once installed, you can use the `heroku` command from your command shell. 
+Once installed, you can use the `heroku` command from your command shell.
 
 <div class="only-windows">On Windows, start the Command Prompt (cmd.exe) or Powershell to access the command shell.</div>
 
@@ -64,10 +64,12 @@ Execute the following commands to clone the sample application:
 :::>- $ git clone https://github.com/heroku/gradle-getting-started.git
 :::>- $ cd gradle-getting-started
 :::-- $ git fetch
-:::-- $ git merge origin/master
+:::-- $ git checkout -t origin/spring
+:::-- $ git checkout master
+:::-- $ git merge spring
 ```
 
-You now have a functioning Git repository that contains a simple application as well as a `build.gradle` file, which is used by the Gradle dependency manager. 
+You now have a functioning Git repository that contains a simple application as well as a `build.gradle` file, which is used by the Gradle dependency manager.
 
 <h2 data-next-message="I have deployed my app on Heroku">Deploy the app</h2>
 
@@ -87,7 +89,7 @@ Now deploy your code:
 
 ```term
 :::>- $ git push heroku master
-:::-> | $ (head -6; echo "..."; tail -11)
+:::-> | $ (head -6; echo "..."; tail -3)
 ```
 
 The application is now deployed.   Ensure that at least one instance of the app is running:
@@ -109,9 +111,14 @@ Heroku treats logs as streams of time-ordered events aggregated from the output 
 View information about your running app using one of the [logging commands](logging), `heroku logs`:
 
 ```term
-:::>- background.start("heroku logs --tail", name: "tail", wait: "State changed from starting to up", timeout: 45)
-:::-> | tail -10
-:::-- background.stop(name: "tail")
+$ heroku logs --tail
+2019-02-07T18:17:07.989806+00:00 app[web.1]: 2019-02-07 18:17:07.989  INFO 4 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-02-07T18:17:08.543833+00:00 heroku[web.1]: State changed from starting to up
+2019-02-07T18:17:08.538347+00:00 app[web.1]: 2019-02-07 18:17:08.538  INFO 4 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 48080 (http) with context path ''
+2019-02-07T18:17:08.543461+00:00 app[web.1]: 2019-02-07 18:17:08.543  INFO 4 --- [           main] com.example.heroku.HerokuApplication     : Started HerokuApplication in 4.827 seconds (JVM running for 5.594)
+2019-02-07T18:17:20.728559+00:00 app[web.1]: 2019-02-07 18:17:20.728  INFO 4 --- [io-48080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-02-07T18:17:20.728692+00:00 app[web.1]: 2019-02-07 18:17:20.728  INFO 4 --- [io-48080-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-02-07T18:17:20.742328+00:00 app[web.1]: 2019-02-07 18:17:20.742  INFO 4 --- [io-48080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 14 ms
 ```
 
 Visit your application in the browser again, and you'll see another log message generated. Press `Control+C` to stop streaming the logs.
@@ -138,7 +145,7 @@ Procfiles can contain additional process types.  For example, you might declare 
 
 <h2 data-next-message="I know how to scale my app">Scale the app</h2>
 
-Right now, your app is running on a single web [dyno](dynos).  Think of a dyno as a lightweight container that runs the command specified in the `Procfile`. 
+Right now, your app is running on a single web [dyno](dynos).  Think of a dyno as a lightweight container that runs the command specified in the `Procfile`.
 
 You can check how many dynos are running using the `ps` command:
 
@@ -154,15 +161,15 @@ For abuse prevention, scaling the application requires [account verification](ac
 
 <h2 data-next-message="I've installed the app dependencies locally">Declare app dependencies</h2>
 
-Heroku recognizes an app as a Gradle app by the existence of a `gradlew` or `build.gradle` file in the root directory. 
+Heroku recognizes an app as a Gradle app by the existence of a `gradlew` or `build.gradle` file in the root directory.
 
 The demo app you deployed already has a `build.gradle` ([see it here](https://github.com/heroku/gradle-getting-started/blob/master/build.gradle)). Here's an excerpt:
 
 ```groovy
-:::-> $ sed -n '11,20p' build.gradle
+:::-> $ sed -n '25,35p' build.gradle
 ```
 
-The `build.gradle` file specifies dependencies that should be installed with your application.  When an app is deployed, Heroku reads this file and installs the  dependencies using the `./gradlew stage` command.
+The `build.gradle` file specifies dependencies that should be installed with your application.  When an app is deployed, Heroku reads this file and installs the  dependencies using the `./gradlew build` command.
 
 Another file, `system.properties`, determines the version of Java to use. (Heroku supports many [different versions](https://devcenter.heroku.com/articles/java-support#supported-java-versions)). The contents of this file, which is optional, are quite straightforward:
 
@@ -170,48 +177,48 @@ Another file, `system.properties`, determines the version of Java to use. (Herok
 :::-> $ cat system.properties
 ```
 
-Run the Gradle `stage` task in your local directory to install the dependencies, preparing your system for running the app locally.  Note that this app requires Java 8, but that you can push your own apps using a different version of Java. 
+Run the Gradle `build` task in your local directory to install the dependencies, preparing your system for running the app locally.  Note that this app requires Java 8, but that you can push your own apps using a different version of Java.
 
 On Windows, run this comannd
 
 ```term
-> gradlew.bat stage
+> gradlew.bat build
 ```
 
 On Mac and Linux run this command:
 
 ```term
-$ ./gradlew stage
+$ ./gradlew build
 ```
 
 In either case, you'll see output like this:
 
 ```term
-:::-- $ ./gradlew stage
+:::-- $ ./gradlew build
 :::-> | $ tail -2
 ```
 
 If you see an error such as `Unsupported major.minor version 52.0`, then Gradle is trying to use Java 7. Check that your `JAVA_HOME` environment variable is set correctly.
 
-The Gradle process will copy the dependencies into your application's `build/install/gradle-getting-started/lib` directory. This process is called "vendoring", and it is done by default in a Ratpack app, such as the sample. But it can also be done manually as described in the [Deploying Gradle Apps on Heroku](https://devcenter.heroku.com/articles/deploying-gradle-apps-on-heroku#verify-that-your-build-file-is-set-up-correctly) guide.
+The Gradle process will copy the dependencies into a single JAR file in your application's `build/libs` directory. This process is called "vendoring", and it is done by default in a Spring app, such as the sample. But it can also be done manually as described in the [Deploying Gradle Apps on Heroku](https://devcenter.heroku.com/articles/deploying-gradle-apps-on-heroku#verify-that-your-build-file-is-set-up-correctly) guide.
 
 Once dependencies are installed, you will be ready to run your app locally.
 
 <h2 data-next-message="I can run my app locally">Run the app locally</h2>
 
-To run the app locally, first ensure that you've run the `gradlew stage` task as described in the previous section. Then start your application using the `heroku local` command, which was installed as part of the Heroku CLI.
+To run the app locally, first ensure that you've run the `gradlew build` task as described in the previous section. Then start your application using the `heroku local` command, which was installed as part of the Heroku CLI.
 
 <div class="only-windows">
 On Windows, be sure to add the <code>-f Procfile.windows</code> option to this command because the default <code>Procfile</code> is specific to Linux.
 </div>
 
 ```term
-$ heroku local web
-20:14:17 web.1  | started with pid 30989
-20:14:19 web.1  | [main] INFO ratpack.server.RatpackServer - Ratpack started for http://localhost:5000
+:::>- background.start("heroku local web", name: "local1", wait: "Tomcat started", timeout: 30)
+:::-> | $ (echo "..."; tail -4)
+:::-- background.stop(name: "local1")
 ```
 
-Just like Heroku, `heroku local` examines the `Procfile` to determine what to run. It also defines the port your app will bind to by setting the `PORT` environment variable. Ratpack detects this by default, but you may need to detect it manually if you are using another framework.
+Just like Heroku, `heroku local` examines the `Procfile` to determine what to run. It also defines the port your app will bind to by setting the `PORT` environment variable, which is configured as `server.port` in the file `src/main/resources/application.properties`.
 
 Your app will now be running at [http://localhost:5000](http://localhost:5000). Test that it's working with `curl` or a web browser, then `Ctrl+C` to exit.
 
@@ -224,29 +231,31 @@ In this step you'll learn how to propagate a local change to the application thr
 Modify `build.gradle` to include a dependency for `jscience` in the `dependencies` section like this:
 
 ```groovy
-:::>> file.append build.gradle#16
+:::>> file.append build.gradle#30
 compile "org.jscience:jscience:4.3.1"
 ```
 
 Modify `src/main/java/Main.java` so that it imports this library at the start, by including the following imports:
 
 ```java
-:::>> file.append src/main/java/Main.java#1
+:::>> file.append src/main/java/com/example/heroku/HerokuApplication.java#19
 import static javax.measure.unit.SI.KILOGRAM;
 import javax.measure.quantity.Mass;
 import org.jscience.physics.model.RelativisticModel;
 import org.jscience.physics.amount.Amount;
 ```
 
-And modify the `get("hello",...)` handler so that it reads like this:
+Add the following `hello ` method to `HerokuApplication.java`:
 
 ```java
-:::>> file.append src/main/java/Main.java#42
-.get("hello", ctx -> {
-  RelativisticModel.select();
-  Amount<Mass> m = Amount.valueOf("12 GeV").to(KILOGRAM);
-  ctx.render("E=mc^2: 12 GeV = " + m.toString());
-})
+:::>> file.append src/main/java/com/example/heroku/HerokuApplication.java#59
+@RequestMapping("/hello")
+String hello(Map<String, Object> model) {
+    RelativisticModel.select();
+    Amount<Mass> m = Amount.valueOf("12 GeV").to(KILOGRAM);
+    model.put("science", "E=mc^2: 12 GeV = " + m.toString());
+    return "hello";
+}
 ```  
 
 [Here's the final source code](https://github.com/heroku/gradle-getting-started/blob/localchanges/src/main/java/Main.java) for `Main.java` - yours should look similar.  [Here's a diff](https://github.com/heroku/gradle-getting-started/compare/localchanges) of all the local changes you should have made.
@@ -254,10 +263,10 @@ And modify the `get("hello",...)` handler so that it reads like this:
 Now test locally:
 
 ```term
-:::>- $ ./gradlew stage
+:::>- $ ./gradlew build
 :::-> | $ (echo "..."; tail -3)
 
-:::>- background.start("heroku local web", name: "local2", wait: "Ratpack started", timeout: 30)
+:::>- background.start("heroku local web", name: "local2", wait: "Tomcat started", timeout: 30)
 :::-> | $ (echo "..."; tail -4)
 :::-- background.stop(name: "local2")
 ```
@@ -344,25 +353,28 @@ Don’t forget to type `exit` to exit the shell and terminate the dyno.
 
 Heroku lets you externalize configuration - storing data such as encryption keys or external resource addresses in [config vars](config-vars).
 
-At runtime, config vars are exposed as environment variables to the application.  For example, modify `src/main/java/Main.java` so that the method repeats grabs an energy value from the `ENERGY` environment variable:
+At runtime, config vars are exposed as environment variables to the application.  For example, modify `src/main/java/com/example/heroku/HerokuApplication.java` so that the method repeats grabs an energy value from the `ENERGY` environment variable:
 
 ```
-:::-- $ sed -e '42,47d' src/main/java/Main.java
+:::-- $ sed -e '56,68d' src/main/java/com/example/heroku/HerokuApplication.java
 ```
 
 ```java
-:::>> file.append src/main/java/Main.java#42
-.get("hello", ctx -> {
-  RelativisticModel.select();
-
-  String energy = System.getenv("ENERGY");
-
-  Amount<Mass> m = Amount.valueOf(energy).to(KILOGRAM);
-  ctx.render("E=mc^2: " + energy + " = " + m.toString());
-})
+:::>> file.append src/main/java/com/example/heroku/HerokuApplication.java#56
+@RequestMapping("/hello")
+String hello(Map<String, Object> model) {
+    RelativisticModel.select();
+    String energy = System.getenv().get("ENERGY");
+    if (energy == null) {
+       energy = "12 GeV";
+    }
+    Amount<Mass> m = Amount.valueOf(energy).to(KILOGRAM);
+    model.put("science", "E=mc^2: " + energy + " = "  + m.toString());
+    return "hello";
+}
 ```
 
-Now compile the app again so that this change is integrated by running `./gradlew stage` or `gradlew.bat stage` respectively.
+Now compile the app again so that this change is integrated by running `./gradlew build` or `gradlew.bat build` respectively.
 
 The `heroku local` command will automatically set up the environment based on the contents of the `.env` file in your local directory.  In the top-level directory of your project there is already a `.env` file that has the following contents:
 
@@ -393,14 +405,7 @@ The [add-on marketplace](https://elements.heroku.com/addons/categories/data-stor
 To begin, attach a new instance of the PostgreSQL add-on to your app by running this command:
 
 ```term
-$ heroku addons:create heroku-postgresql
-Creating postgresql-transparent-1523... done, (free)
-Adding postgresql-transparent-1523 to warm-eyrie-9006... done
-Setting DATABASE_URL and restarting warm-eyrie-9006... done, v3
-Database has been created and is available
- ! This database is empty. If upgrading, you can transfer
- ! data from another database with pgbackups:restore
-Use `heroku addons:docs heroku-postgresql` to view documentation.
+:::>> $ heroku addons:create heroku-postgresql
 ```
 
 You can find out a little more about the database provisioned for your app using the `addons` command in the CLI:
@@ -428,8 +433,7 @@ The example app you deployed already has database functionality, which you shoul
 The code to access the database is straightforward. Here's the method to insert values into a table called `tick`:
 
 ```java
-:::-> $ sed -n '56,80p' src/main/java/Main.java
-:::-> | $ sed 
+:::-> $ sed -n '45,50p;78,109p'  src/main/java/com/example/heroku/HerokuApplication.java
 ```
 
 This ensures that when you access your app using the `/db` route, a new row will be added to the `tick` table, and all the rows will then be returned so that they can be rendered in the output.
