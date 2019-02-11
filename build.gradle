@@ -27,5 +27,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly 'org.webjars:jquery'
+	runtimeOnly 'org.webjars:jquery-ui'
+	runtimeOnly 'org.webjars:bootstrap'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
