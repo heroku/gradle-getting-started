@@ -259,7 +259,7 @@ String hello(Map<String, Object> model) {
 }
 ```
 
-```
+```html
 :::>> file.write src/main/resources/templates/hello.html
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'hello')}">
