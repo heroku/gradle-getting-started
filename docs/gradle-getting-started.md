@@ -215,6 +215,7 @@ On Windows, be sure to add the <code>-f Procfile.windows</code> option to this c
 ```term
 :::>- background.start("heroku local web", name: "local1", wait: "Tomcat started", timeout: 30)
 :::-> | $ (echo "..."; tail -4)
+:::-- $ curl -f localhost:5000
 :::-- background.stop(name: "local1")
 ```
 
@@ -235,7 +236,7 @@ Modify `build.gradle` to include a dependency for `jscience` in the `dependencie
 compile "org.jscience:jscience:4.3.1"
 ```
 
-Modify `src/main/java/Main.java` so that it imports this library at the start, by including the following imports:
+Modify `src/main/java/com/example/heroku/HerokuApplication.java` so that it imports this library at the start.
 
 ```java
 :::>> file.append src/main/java/com/example/heroku/HerokuApplication.java#19
@@ -256,9 +257,21 @@ String hello(Map<String, Object> model) {
     model.put("science", "E=mc^2: 12 GeV = " + m.toString());
     return "hello";
 }
-```  
+```
 
-[Here's the final source code](https://github.com/heroku/gradle-getting-started/blob/localchanges/src/main/java/Main.java) for `Main.java` - yours should look similar.  [Here's a diff](https://github.com/heroku/gradle-getting-started/compare/localchanges) of all the local changes you should have made.
+```
+:::>> file.write src/main/resources/templates/hello.html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'hello')}">
+<body>
+  <div class="container">
+    <p th:text="${science}"/>
+  </div>
+</body>
+</html>
+```
+
+[Here's the final source code](https://github.com/heroku/gradle-getting-started/blob/localchanges/src/main/java/com/example/heroku/HerokuApplication.java) for `HerokuApplication.java` - yours should look similar.  [Here's a diff](https://github.com/heroku/gradle-getting-started/compare/localchanges) of all the local changes you should have made.
 
 Now test locally:
 
@@ -268,6 +281,7 @@ Now test locally:
 
 :::>- background.start("heroku local web", name: "local2", wait: "Tomcat started", timeout: 30)
 :::-> | $ (echo "..."; tail -4)
+:::-- $ curl -f localhost:5000/hello
 :::-- background.stop(name: "local2")
 ```
 
