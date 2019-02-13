@@ -30,15 +30,45 @@ If you'd prefer to use Maven instead of Gradle, please see the [Getting Started 
 
 <h2 data-next-message="I have installed the Heroku CLI">Set up</h2>
 
-In this step you will install the Heroku Command Line Interface (CLI), formerly known at the Heroku Toolbelt.  You will use the CLI to manage and scale your applications, to provision add-ons, to view the logs of your application as it runs on Heroku, as well as to help run your application locally.
+In this step you will install the Heroku Command Line Interface (CLI), formerly known at the Heroku Toolbelt.  You will use the CLI to manage and scale your applications, to provision add-ons, to view the logs of your application as it runs on Heroku, as well as to help run your application locally. 
 
-<a class="toolbelt" href="https://cli.heroku.com">Download the Heroku CLI</a>
+Download and run the installer for your platform:
 
-Once installed, you can use the `heroku` command from your command shell.
+<div class="cli-download">
+  <div class="text-center">
+    <div class="download-wrap">
+      <div class="download-column panel">
+        <div class="download-title"><img src="/images/cli-apple-logo.svg" class="logo" alt="apple logo" />macOS</div>
+        <p>
+        <a href="https://cli-assets.heroku.com/heroku.pkg" class="btn btn-primary">Download the installer</a></p>
+        <p><sub>Also available via Homebrew:</sub></p>
+        <pre class=" language-term"><code class=" language-term"><span class="token input"><span class="token prompt">$ </span>brew install heroku/brew/heroku</span></code></pre>
+      </div>
+      <div class="download-column panel">
+        <div class="download-title"><img src="/images/cli-windows-logo.svg" class="logo" alt="windows logo"/>Windows</div>
+        <p>Download the appropriate installer for your Windows installation:</p>
+        <p>
+        <a href="https://cli-assets.heroku.com/heroku-x64.exe" class="btn btn-primary">64-bit installer</a></p>
+        <p><a href="https://cli-assets.heroku.com/heroku-x86.exe" class="btn btn-primary">32-bit installer</a></p>
+      </div>
+    </div>
+    <div class="download-wrap">
+      <div class="download-column panel">
+        <div class="download-title"><img src="/images/cli-ubuntu-logo.svg" class="logo" alt="ubuntu logo" />Ubuntu 16+</div>
+        <p>Run the following from your terminal:</p>
+        <pre class=" language-term"><code class=" language-term"><span class="token input"><span class="token prompt">$ </span>sudo snap install heroku --classic</span></code></pre>
+        <p><sub><a href="https://snapcraft.io">Snap is available on other Linux OS's as well</a>.
+</sub></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+When installation completes, you can use the `heroku` command from your terminal.
 
 <div class="only-windows">On Windows, start the Command Prompt (cmd.exe) or Powershell to access the command shell.</div>
 
-Log in using the email address and password you used when creating your Heroku account:
+Once installed, you can use the `heroku` command from your command shell.
 
 ```term
 $ heroku login
