@@ -93,10 +93,6 @@ Execute the following commands to clone the sample application:
 ```term
 :::>- $ git clone https://github.com/heroku/gradle-getting-started.git
 :::>- $ cd gradle-getting-started
-:::-- $ git fetch
-:::-- $ git checkout -t origin/spring
-:::-- $ git checkout master
-:::-- $ git merge spring
 ```
 
 You now have a functioning Git repository that contains a simple application as well as a `build.gradle` file, which is used by the Gradle dependency manager.
