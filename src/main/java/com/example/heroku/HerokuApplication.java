@@ -18,6 +18,8 @@ package com.example.heroku;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -38,6 +40,8 @@ import java.util.Map;
 @SpringBootApplication
 public class HerokuApplication {
 
+  private Logger LOG = LoggerFactory.getLogger(this.getClass());
+
   @Value("${spring.datasource.url}")
   private String dbUrl;
 
@@ -50,6 +54,8 @@ public class HerokuApplication {
 
   @RequestMapping("/")
   String index() {
+    LOG.info("Inside the index method...");
+    System.out.println("Inside the index method....");
     return "index";
   }
 
@@ -76,6 +82,8 @@ public class HerokuApplication {
 
   @Bean
   public DataSource dataSource() throws SQLException {
+    LOG.info("Getting db...");
+    System.out.println("Getting db...");
     if (dbUrl == null || dbUrl.isEmpty()) {
       return new HikariDataSource();
     } else {
