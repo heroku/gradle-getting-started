@@ -55,7 +55,6 @@ public class HerokuApplication {
   @RequestMapping("/")
   String index() {
     LOG.info("Inside the index method...");
-    System.out.println("Inside the index method....");
     return "index";
   }
 
@@ -83,7 +82,6 @@ public class HerokuApplication {
   @Bean
   public DataSource dataSource() throws SQLException {
     LOG.info("Getting db...");
-    System.out.println("Getting db...");
     if (dbUrl == null || dbUrl.isEmpty()) {
       return new HikariDataSource();
     } else {
