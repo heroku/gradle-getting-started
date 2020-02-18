@@ -235,7 +235,7 @@ Once dependencies are installed, you will be ready to run your app locally.
 To run the app locally, first ensure that you've run the `gradlew build` task as described in the previous section. Then start your application using the `heroku local` command, which was installed as part of the Heroku CLI.
 
 <div class="only-windows">
-On Windows, be sure to add the <code>-f Procfile.windows</code> option to this command because the default <code>Procfile</code> is specific to Linux.
+On Windows, use the command `gradlew.bat bootRun` instead.
 </div>
 
 ```term
