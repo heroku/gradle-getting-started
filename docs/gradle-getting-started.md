@@ -30,7 +30,7 @@ If you'd prefer to use Maven instead of Gradle, please see the [Getting Started 
 
 <h2 data-next-message="I have installed the Heroku CLI">Set up</h2>
 
-In this step you will install the Heroku Command Line Interface (CLI), formerly known at the Heroku Toolbelt.  You will use the CLI to manage and scale your applications, to provision add-ons, to view the logs of your application as it runs on Heroku, as well as to help run your application locally. 
+In this step you will install the Heroku Command Line Interface (CLI), formerly known at the Heroku Toolbelt.  You will use the CLI to manage and scale your applications, to provision add-ons, to view the logs of your application as it runs on Heroku, as well as to help run your application locally.
 
 Download and run the installer for your platform:
 
@@ -107,7 +107,7 @@ Create an app on Heroku, which prepares Heroku to receive your source code:
 :::>> $ heroku create
 ```
 
-When you create an app, a Git remote (called `heroku`) is also created and associated with your local Git repository.  
+When you create an app, a Git remote (called `heroku`) is also created and associated with your local Git repository.
 
 Heroku generates a random name (in this case `warm-eyrie-9006`) for your app, or you can pass a parameter to specify your own app name.
 
@@ -115,7 +115,7 @@ Now deploy your code:
 
 ```term
 :::>- $ git push heroku master
-:::-> | $ (head -6; echo "..."; tail -3)
+:::-> | (head -6; echo "..."; tail -3)
 ```
 
 The application is now deployed.   Ensure that at least one instance of the app is running:
@@ -221,7 +221,7 @@ In either case, you'll see output like this:
 
 ```term
 :::-- $ ./gradlew build
-:::-> | $ tail -2
+:::-> | tail -2
 ```
 
 If you see an error such as `Unsupported major.minor version 52.0`, then Gradle is trying to use Java 7. Check that your `JAVA_HOME` environment variable is set correctly.
@@ -239,7 +239,7 @@ On Windows, use the command `gradlew.bat bootRun` instead.
 </div>
 
 ```term
-:::>- background.start("heroku local web", name: "local1", wait: "Tomcat started", timeout: 30)
+:::>- background.start("heroku local web", name: "local1", wait: "Tomcat started", timeout: 75)
 :::-> | $ (echo "..."; tail -4)
 :::-- $ curl -f localhost:5000
 :::-- background.stop(name: "local1")
