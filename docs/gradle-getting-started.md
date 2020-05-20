@@ -240,7 +240,7 @@ On Windows, use the command `gradlew.bat bootRun` instead.
 
 ```term
 :::>- background.start("heroku local web", name: "local1", wait: "Tomcat started", timeout: 75)
-:::-> | $ (echo "..."; tail -4)
+:::-> | (echo "..."; tail -4)
 :::-- $ curl -f localhost:5000
 :::-- background.stop(name: "local1")
 ```
@@ -303,10 +303,10 @@ Now test locally:
 
 ```term
 :::>- $ ./gradlew build
-:::-> | $ (echo "..."; tail -3)
+:::-> | (echo "..."; tail -3)
 
 :::>- background.start("heroku local web", name: "local2", wait: "Tomcat started", timeout: 30)
-:::-> | $ (echo "..."; tail -4)
+:::-> | (echo "..."; tail -4)
 :::-- $ curl -f localhost:5000/hello
 :::-- background.stop(name: "local2")
 ```
@@ -382,7 +382,7 @@ You can run a command, typically scripts and applications that are part of your 
 
 ```term
 :::>- $ heroku run java -version
-:::-> | $ tail -4
+:::-> | tail -4
 ```
 
 If you receive an error, `Error connecting to process`, then you may need to [configure your firewall](https://devcenter.heroku.com/articles/one-off-dynos#timeout-awaiting-process).
