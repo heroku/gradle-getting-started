@@ -19,13 +19,13 @@
 <div class="star star4"></div>
 <div class="star star5"></div>
 
-<div class="error">
-    <div class="error__title">404</div>
-    <div class="error__subtitle">Welcome to the 404 galaxy...</div>
-    <div class="error__description">It looks like what you are searching for doesn't exist.</div>
+<div class="error" th:if="${conflict != null}" >
+    <div class="error__title">409</div>
+    <div class="error__subtitle">Welcome to the 409 galaxy...</div>
+    <div class="error__description" th:text="${conflict}">It looks like what you are searching for doesn't exist.</div>
 
-    <a href="#" th:href="@{/}">
-        <button class="error__button error__button--active">HOME</button>
+    <a href="#">
+        <button onclick="window.history.go(-1)" class="error__button error__button--active">BACK</button>
     </a>
 </div>
 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:fragment="shipment-form" action="#" th:action="@{__${#httpServletRequest.requestURI}__}" th:object="${shipment}"
+      method="post">
+    <label class="text-label-own" th:text="#{shipment.label.departure}">Date</label>
+    <br/>
+    <input class="input-custom-field" type="date" th:field="*{departureDate}"/>
+    <br>
+    <label class="error error-custom" th:errors="*{departureDate}">Name error placeholder</label>
+    <br/><br/>
+    <label class="text-label-own" th:text="#{shipment.label.arrival}">Date</label>
+    <br/>
+    <input class="input-custom-field" type="date" th:field="*{arrivalDate}"/>
+    <br>
+    <label class="error error-custom" th:errors="*{arrivalDate}">Name error placeholder</label>
+    <br><br/>
+
+
+    <label class="text-label-own" th:text="#{shipment.label.status}"></label>
+    <br>
+    <select class="select-button" th:field="*{statusId}">
+        <option th:each="status : ${statuses}"
+                th:value="${status.getId()}"
+                th:text="${status.getName()}">
+            Status
+        </option>
+    </select>
+    <label class="error error-custom" th:errors="*{statusId}">Status error placeholder</label>
+    <br/><br/>
+
+    <input class="btn btn-outline-primary custom-button-size" type="submit" value="Save"/>
+</form>
+
+</body>
+</html>

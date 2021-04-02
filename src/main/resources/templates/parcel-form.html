@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:fragment="parcel-form" action="#" th:action="@{__${#httpServletRequest.requestURI}__}" th:object="${parcel}" method="post">
+    <label class="text-label-own" th:text="#{parcel.label.weight}">Parcel</label>
+    <br/>
+    <input class="input-custom-field" type="text" th:field="*{weight}"/>
+    <label class="error error-custom" th:errors="*{weight}">Weight error placeholder</label>
+    <br/><br/>
+
+    <label class="text-label-own" th:text="#{category.label.name}">Category</label>
+    <br/>
+    <select class="select-button" th:field="*{categoryId}">
+        <option th:each="category : ${categories}"
+                th:value="${category.getId()}"
+                th:text="${category.getName()}">
+            Categories
+        </option>
+    </select>
+    <label class="error error-custom" th:errors="*{categoryId}">Category error placeholder</label>
+    <br/><br/>
+
+    <label class="text-label-own" th:text="#{warehouse.label.name}">Category</label>
+    <br/>
+    <select class="select-button" th:field="*{warehouseId}">
+        <option th:each="warehouse : ${warehouses}"
+                th:value="${warehouse.getId()}"
+                th:text="${warehouse.getAddress().getStreetName() + ' '+
+                 warehouse.getAddress().getCity().getName() + '/'+
+                 warehouse.getAddress().getCity().getCountry().getName()}">
+            Categories
+        </option>
+    </select>
+    <label  class="error error-custom" th:errors="*{warehouseId}">warehouseId error placeholder</label>
+    <br/><br/>
+
+    <label class="text-label-own" th:text="#{customer.label.name}">Category</label>
+    <br/>
+    <select class="select-button" th:field="*{userId}">
+        <option th:each="user : ${customers}"
+                th:value="${user.getId()}"
+                th:text="${user.getEmail()}">
+            Customers
+        </option>
+    </select>
+    <label class="error error-custom" th:errors="*{userId}">Users error placeholder</label>
+    <br/><br/>
+
+    <input class="btn btn-outline-primary custom-button-size" type="submit" value="Save"/>
+</form>
+
+</body>
+</html>

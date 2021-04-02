@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Warehouses</title>
+    <link rel="icon" type="image/png" href="../static/assets/img/navbar-logo.svg" th:href="@{/assets/img/navbar-logo.svg}"/>
+    <link href="../static/styles.css" th:href="@{/styles.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top" th:href="@{/}"><img
+                src="../static/assets/img/navbar-logo.svg" th:src="@{/assets/img/navbar-logo.svg}"
+                alt="navbarlogo"/></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars ml-1"></i>
+        </button>
+    </div>
+</nav>
+<table class="wh-table sortable" id="myTable">
+    <input type="text" id="myInputForSearch" onkeyup="myFunctionFilter()" placeholder="Search.." title="Type in a name">
+    <tr class="wh-header">
+
+        <th class="wh-cell-header" th:text="#{warehouse.label.address}">ADDRESS</th>
+        <th class="wh-cell-header" th:text="#{warehouse.label.cityAndCountry}">Style</th>
+    </tr>
+    <tr class="wh-row" th:each="warehouse : ${warehouses}">
+
+        <td class="wh-cell" th:text="${warehouse.getAddress().getStreetName}">StreetName</td>
+        <td class="wh-cell"
+            th:text="${warehouse.getAddress().getCity().getName()} + ' / ' + ${warehouse.getAddress().getCity().getCountry().getName()}">
+            Address
+        </td>
+    </tr>
+</table>
+
+<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+
+<script>
+    function myFunctionFilter() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInputForSearch");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 1; i < tr.length; i++) {
+            // Hide the row initially.
+            tr[i].style.display = "none";
+            td = tr[i].getElementsByTagName("td");
+            for (var j = 0; j < td.length; j++) {
+                cell = tr[i].getElementsByTagName("td")[j];
+                if (cell) {
+                    if (cell.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                        break;
+                    }
+                }
+            }
+        }
+    }
+</script>
+
+
+</body>
+</html>
