@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Warehouse Form Fragment</title>
+</head>
+<body>
+<form th:fragment="warehouse-form" action="#" th:action="@{__${#httpServletRequest.requestURI}__}"
+      th:object="${address}" method="post">
+
+    <label class="text-label-own" th:text="#{warehouse.label.name}">Warehouse</label>
+    <br/>
+    <input class="input-custom-field" type="text" th:field="*{streetName}"/>
+    <label class="error error-custom" th:errors="*{streetName}">Name error placeholder</label>
+    <br/><br/>
+
+
+    <label class="text-label-own" th:text="#{city.label.name}">City</label>
+    <br/>
+    <select class="select-button" th:field="*{cityId}">
+        <option th:each="city : ${cities}"
+                th:value="${city.getId()}"
+                th:text="${city.getName()}">
+            Cities
+        </option>
+    </select>
+    <label class="error error-custom" th:errors="*{cityId}">Address error placeholder</label>
+    <br/><br/>
+
+    <input class="btn btn-outline-primary custom-button-size" type="submit" value="Save"/>
+</form>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="icon" type="image/png" href="../static/assets/img/navbar-logo.svg" th:href="@{/assets/img/navbar-logo.svg}"/>
+    <link href="../static/styles.css" th:href="@{/styles.css}" rel="stylesheet"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#" th:href="@{/}" ><img src="../static/assets/img/navbar-logo.svg" th:src="@{/assets/img/navbar-logo.svg}" alt="navbarlogo"  /></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars ml-1"></i>
+        </button>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Change password</h5>
+                    <form class="form-signin" action="#" th:action="@{/users/{id}/address(id=${currentUser.getId()})}" th:object="${address}" method="post">
+
+                        <div class="form-label-group">
+                            <input type="text" id="inputStreetName" th:field="*{streetName}" class="form-control" placeholder="StreetName" required autofocus>
+                            <label for="inputStreetName">New street name</label>
+                            <p class="error-custom" th:errors="*{streetName}">Street name error.</p>
+
+                            <select class="select-cities-button" th:field="*{cityId}">
+                                <option th:each="city : ${cities}"
+                                        th:value="${city.getId()}"
+                                        th:text="${city.getName()}">
+                                    Cities
+                                </option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

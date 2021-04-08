@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="icon" type="image/png" href="../static/assets/img/navbar-logo.svg" th:href="@{/assets/img/navbar-logo.svg}"/>
+    <link href="../static/styles.css" th:href="@{/styles.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Register</h5>
+                    <form class="form-signin" action="#" th:action="@{/auth/register}" th:object="${register}"
+                          method="post">
+                        <div class="form-label-group">
+                            <input type="text" th:field="*{firstName}" id="inputFirstName" class="form-control"
+                                   placeholder="First name" required autofocus>
+                            <label for="inputFirstName">First name</label>
+                            <p class="error-custom" th:errors="*{firstName}">First name error.</p>
+                        </div>
+
+                        <div class="form-label-group">
+                            <input type="text" th:field="*{lastName}" id="inputLastName" class="form-control"
+                                   placeholder="Last name" required autofocus>
+                            <label for="inputLastName">Last name</label>
+                            <p class="error-custom" th:errors="*{lastName}">Last name error.</p>
+
+                        </div>
+
+                        <hr>
+
+                        <div class="form-label-group">
+                            <input type="email" th:field="*{email}" id="inputEmail" class="form-control"
+                                   placeholder="Email address" required>
+                            <label for="inputEmail">Email</label>
+                            <p class="error-custom" th:errors="*{email}">First name error.</p>
+
+                        </div>
+
+
+                        <div class="form-label-group">
+                            <input type="password" th:field="*{password}" id="inputPassword" class="form-control"
+                                   placeholder="Password" required>
+                            <label for="inputPassword">Password</label>
+                            <p class="error-custom" th:errors="*{password}">First name error.</p>
+
+                        </div>
+
+                        <div class="form-label-group">
+                            <input type="password" th:field="*{confirmPassword}" id="inputConfirmPassword"
+                                   class="form-control" placeholder="Password" required>
+                            <label for="inputConfirmPassword">Confirm password</label>
+                            <p class="error-custom" th:errors="*{confirmPassword}">First name error.</p>
+                        </div>
+
+                        <div class="form-label-group">
+                            <input type="text" th:field="*{streetName}" id="inputStreetName"
+                                   class="form-control" placeholder="Street name" required>
+                            <label for="inputStreetName">Street name</label>
+                            <p class="error-custom" th:errors="*{streetName}">First name error.</p>
+                            <select class="select-cities-button" th:field="*{cityId}">
+                                <option th:each="city : ${cities}"
+                                        th:value="${city.getId()}"
+                                        th:text="${city.getName()}">
+                                    Cities
+                                </option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
+                        <a class="d-block text-center mt-2 small" href="#" th:href="@{/auth/login}">Sign In</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="icon" type="image/png" href="../static/assets/img/navbar-logo.svg" th:href="@{/assets/img/navbar-logo.svg}"/>
+    <link href="../static/styles.css" th:href="@{/styles.css}" rel="stylesheet"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#" th:href="@{/}" ><img src="../static/assets/img/navbar-logo.svg" th:src="@{/assets/img/navbar-logo.svg}" alt="navbarlogo"  /></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars ml-1"></i>
+        </button>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Roles</h5>
+                    <form class="form-signin" action="#" th:action="@{/users/{id}/roles(id=${currentUser.getId()})}" th:object="${currentUser}" method="post">
+
+                        <div class="form-check">
+                            <h5 th:text="${currentUser.getEmail()}" ></h5>
+                            <label class="form-check-label">
+                                <label th:each="role : ${roles}">
+                                    <p>
+                                    <input class="form-check-input" type="checkbox"
+                                           th:text="${role.role}"
+                                           th:value="${role.role}"
+                                           th:field="*{roles}"></label>
+                                </p>
+                            </label>
+                        </div>
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" th:href="@{/profile}">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

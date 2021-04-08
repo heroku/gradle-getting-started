@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="icon" type="image/png" href="../static/assets/img/navbar-logo.svg" th:href="@{/assets/img/navbar-logo.svg}"/>
+    <link href="../static/styles.css" th:href="@{/styles.css}" rel="stylesheet"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#" th:href="@{/}"><img
+                src="../static/assets/img/navbar-logo.svg" th:src="@{/assets/img/navbar-logo.svg}"
+                alt="navbarlogo"/></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars ml-1"></i>
+        </button>
+    </div>
+</nav>
+<div class="container" id="container-custom">
+    <div class="main-body">
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="../static/assets/img/user-circle.svg" th:src="@{/assets/img/user-circle.svg}"  alt="Admin" class="rounded-circle" width="150">
+                            <div class="mt-3 mb-0-profile">
+                                <h6 class="mb-0-profile" th:text="*{currentUser.firstName + ' ' + currentUser.lastName}" >John Doe</h6>
+                                <hr>
+                                <div th:if="${currentUser.isCustomer()}"><h6 class="mb-0-profile">Customer</h6></div>
+                                <div th:if="${currentUser.isEmployee()}"><h6 class="mb-0-profile">Employee</h6></div>
+                                <!--<button class="btn btn-primary">Follow</button>-->
+
+                                <div th:if="${visitor.isEmployee()}">
+                                    <a class="btn btn-outline-primary" href="#" th:href="@{/users/{id}/roles(id=${currentUser.getId()})}">Update roles</a>
+                                </div>
+                                <hr>
+                                <div><a class="btn btn-outline-primary " id="delete-button-own-color" href="#" th:href="@{/users/{id}/delete(id=${currentUser.getId()})}">Delete profile</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0-profile">First name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary" th:text="*{currentUser.firstName}">
+                                Kenneth
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0-profile">Last name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary" th:text="*{currentUser.lastName}">
+                                Valdez
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0-profile">Email</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary" th:text="*{currentUser.email}">
+                                Email
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0-profile">Street</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary" th:text="*{currentUser.address.streetName}">
+                                Bay Area, San Francisco, CA
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0-profile">City</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary" th:text="*{currentUser.getAddress().getCity().getName()}">
+                                Bay Area, San Francisco, CA
+                            </div>
+                        </div>
+                        <hr>
+
+                        <a class="btn btn-outline-primary" href="#" th:href="@{/users/{id}/password(id=${currentUser.getId()})}">Change password</a>
+                        <a class="btn btn-outline-primary" href="#" th:href="@{/users/{id}/address(id=${currentUser.getId()})}">Change address</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<script>
+    function myFunction() {
+        var txt;
+        var r = confirm("Press a button!");
+        var element = document.getElementById(a);
+        if (r == true) {
+            txt = "You pressed OK!";
+        } else {
+            window.history.back();
+        }
+        document.getElementById("demo").innerHTML = txt;
+    }-->
+</script>
+</body>
+</html>

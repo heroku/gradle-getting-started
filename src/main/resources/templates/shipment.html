@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shipment</title>
+    <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/png" href="../static/assets/img/navbar-logo.svg" th:href="@{/assets/img/navbar-logo.svg}"/>
+    <link href="../static/styles.css" th:href="@{/styles.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#" th:href="@{/}"><img
+                src="../static/assets/img/navbar-logo.svg" th:src="@{/assets/img/navbar-logo.svg}"
+                alt="navbarlogo"/></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars ml-1"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ml-auto">
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#" th:href="@{/shipments/new}">Create new shipment</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#" th:href="@{/admin}">Admin</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<table class="wh-table sortable" id="myTable">
+    <input type="text" id="myInputForSearch" onkeyup="myFunctionFilter()" placeholder="Search.." title="Type in a name">
+
+    <tr class="wh-header">
+        <th class="wh-cell-header" th:text="#{label.ID}">ID</th>
+        <th class="wh-cell-header" th:text="#{parcel.label.weight}">ABV</th>
+        <th class="wh-cell-header" th:text="#{parcel.label.category}">Style</th>
+        <th class="wh-cell-header" th:text="#{parcel.label.customer}">Style</th>
+        <th class="wh-cell-header" th:text="#{parcel.label.warehouse}">Style</th>
+        <th class="wh-cell-header" th:text="#{parcel.label.remove}">Style</th>
+    </tr>
+    <tr class="wh-row" th:each="parcel : ${shipment.getParcels()}">
+
+        <td class="wh-cell">
+            <a class="ID" href="#" th:href="@{/parcels/{id}(id=${parcel.getId()})}" th:text="${parcel.getId()}">Parcel</a>
+        </td>
+
+        <td class="wh-cell" th:text="${parcel.getWeight()}">Weight</td>
+        <td class="wh-cell" th:text="${parcel.getCategory().getName()}">Category</td>
+        <td class="wh-cell" th:text="${parcel.getUser().getEmail()}">User</td>
+        <td class="wh-cell" th:text="${parcel.getWarehouse().getAddress().getStreetName()}">Warehouse</td>
+        <td class="wh-cell">
+            <h5 class="updateDeleteButtons">
+                <a href="#" th:href="@{__${#httpServletRequest.requestURI}__/parcel/{id}(id=${parcel.getId()})}"><button class="btn btn-outline-primary">Remove</button></a>
+            </h5>
+        </td>
+    </tr>
+</table>
+
+<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+
+<script>
+    function myFunctionFilter() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInputForSearch");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 1; i < tr.length; i++) {
+            // Hide the row initially.
+            tr[i].style.display = "none";
+            td = tr[i].getElementsByTagName("td");
+            for (var j = 0; j < td.length; j++) {
+                cell = tr[i].getElementsByTagName("td")[j];
+                if (cell) {
+                    if (cell.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                        break;
+                    }
+                }
+            }
+        }
+    }
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Third party plugin JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<!-- Contact form JS-->
+<script src="assets/mail/jqBootstrapValidation.js"></script>
+<script src="assets/mail/contact_me.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>

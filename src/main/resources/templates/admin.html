@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="icon" type="image/png" href="../static/assets/img/navbar-logo.svg" th:href="@{/assets/img/navbar-logo.svg}"/>
+    <link href="../static/buttons.css" th:href="@{/buttons.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="col">
+    <div class="container-1">
+        <a class="nav-link js-scroll-trigger" href="#" th:href="@{/}">
+        <div class="btn btn-two">
+            <span>HOME</span>
+           <!-- <img class="admin-button-pictures" src="../static/images/home.svg" th:src="@{/images/home.svg}"  width="30">-->
+        </div></a>
+    </div>
+
+    <div class="container-2">
+        <a class="nav-link js-scroll-trigger" href="#" th:href="@{/users}">
+        <div class="btn-own btn-two-own">
+            <img class="admin-button-pictures" src="../static/images/users.svg" th:src="@{/images/users.svg}"  width="30">
+        </div></a>
+    </div>
+
+    <div class="container-3">
+        <a class="nav-link js-scroll-trigger" href="#" th:href="@{/parcels}">
+        <div class="btn btn-two">
+            <img class="admin-button-pictures" src="../static/images/parcel.svg" th:src="@{/images/parcel.svg}"  width="30">
+        </div></a>
+    </div>
+</div>
+
+<div class="col">
+    <div class="container-4">
+        <a class="nav-link js-scroll-trigger" href="#" th:href="@{/warehouses}">
+        <div class="btn btn-two">
+            <img class="admin-button-pictures" src="../static/images/warehouse.svg" th:src="@{/images/home.svg}"  width="30">
+        </div></a>
+    </div>
+
+    <div class="container-5">
+        <a class="nav-link js-scroll-trigger" href="#" th:href="@{/shipments}">
+        <div class="btn-own btn-two-own">
+            <img class="admin-button-pictures" src="../static/images/shipment.svg" th:src="@{/images/shipment.svg}"  width="30">
+        </div></a>
+    </div>
+
+    <div class="container-6">
+        <div class="btn btn-two">
+            <span>IN CONSTRUCTION</span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
