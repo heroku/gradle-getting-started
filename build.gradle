@@ -33,3 +33,7 @@ dependencies {
 	runtimeOnly 'org.webjars:webjars-locator:0.38'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
+
+task stage {
+	dependsOn build
+}
