@@ -65,7 +65,7 @@ public class HerokuApplication {
       while (rs.next()) {
         output.add("Read from DB: " + rs.getTimestamp("tick"));
       }
-
+      System.out.println("Print statement inside the Main.db method. Michael Butler"); // this may need to change
       model.put("records", output);
       return "db";
     } catch (Exception e) {
