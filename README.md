@@ -1,27 +1,6 @@
-# gradle-getting-started
+# Java: Getting Started (Gradle)
 
-A barebones Gradle app, which can easily be deployed to Heroku.
-
-This application support the [Getting Started with Gradle on Heroku](https://devcenter.heroku.com/articles/getting-started-with-gradle-on-heroku) article - check it out.
-
-## Running Locally
-
-Make sure you have Java installed.  Also, install the [Heroku Toolbelt](https://toolbelt.heroku.com/).
-
-```sh
-$ git clone https://github.com/heroku/gradle-getting-started.git
-$ cd gradle-getting-started
-$ ./gradlew stage
-$ heroku local web
-```
-
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-If you're going to use a database, ensure you have a local `.env` file that reads something like this:
-
-```
-DATABASE_URL=postgres://localhost:5432/gradle_database_name
-```
+A barebones Java app, which can easily be deployed to Heroku.
 
 ## Deploying to Heroku
 
@@ -31,14 +10,12 @@ By default, apps use Eco dynos if you are subscribed to Eco. Otherwise, it defau
 
 Eligible students can apply for platform credits through our new [Heroku for GitHub Students program](https://blog.heroku.com/github-student-developer-program).
 
-```sh
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
+This application supports the [Getting Started with Java on Heroku](https://devcenter.heroku.com/articles/getting-started-with-gradle-on-heroku) article - check it out for instructions on how to deploy this app to Heroku and also run it locally.
 
-## Documentation
+Alternatively, you can deploy it using this Heroku Button:
 
-For more information about using Java on Heroku, see these Dev Center articles:
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+For more information about using Python on Heroku, see these Dev Center articles:
 
 - [Java on Heroku](https://devcenter.heroku.com/categories/java)
