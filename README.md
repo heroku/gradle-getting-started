@@ -2,6 +2,11 @@
 
 A barebones Java app, which can easily be deployed to Heroku.
 
+This application supports the tutorials for both the [Cedar and Fir generations](https://devcenter.heroku.com/articles/generations) of the Heroku platform. You can check them out here:
+
+- [Getting Started on Heroku with Gradle](https://devcenter.heroku.com/articles/getting-started-with-gradle-on-heroku)
+- [Getting Started on Heroku Fir with Gradle](https://devcenter.heroku.com/articles/getting-started-with-java-gradle-fir)
+
 If you want to use Maven instead of Gradle, see [Java: Getting Started (Maven)](https://github.com/heroku/java-getting-started).
 
 ## Deploying to Heroku
