@@ -7,4 +7,7 @@
 
 # However, request review from the Heroku language owner for files that are updated
 # by Dependabot, to reduce team review request noise.
+/gradle/wrapper/ @Malax
 build.gradle.kts @Malax
+gradlew @Malax
+gradlew.bat @Malax
