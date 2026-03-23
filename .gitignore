@@ -27,3 +27,4 @@
 docs/gradle-getting-started
 docs/tmp
 .vscode/
+.DS_Store
